@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Firebase
 import SVProgressHUD
+import SCLAlertView
 
 class ClockinViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     
@@ -19,6 +20,7 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
     var latitude : Double = 0
     var longitude : Double = 0
     var jobDescription = ""
+    let dateID = DateTime().currentDay().dropLast(3)
     
     
     @IBOutlet weak var height: NSLayoutConstraint!
@@ -34,7 +36,7 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        updateData()
         updateTime()
         myTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         jobDescriptionTextField.delegate = self
@@ -99,10 +101,11 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
     func writeToDataBase() {
         let user = Auth.auth().currentUser?.email
         let hashID = String(user!.hashValue)
+       
         let checkinDictionary = ["Location" : "\(latitude),\(longitude)", "time" : DateTime().currentDate(), "job" : jobDescriptionTextField.text!]
         jobDescriptionTextField.text = ""
         jobDescriptionTextField.endEditing(true)
-        let clockInData = Database.database().reference().child(hashID)
+        let clockInData = Database.database().reference().child(hashID).child(String(dateID))
         
         clockInData.childByAutoId().setValue(checkinDictionary){
             (error, reference) in
@@ -135,20 +138,60 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
         SVProgressHUD.show()
         getLocation()
         
-        
     }
+    //################################################################################
+    //MARK: UPDATE LAST CHECK-IN
     func updateLastCheckin() {
         let dateTime = DateTime().currentTime()
         lastCheckin.text = "Last Check-in was: " + String(dateTime)
         
     }
     
-    //################################################################################
-    //TODO: GET DATA FROM SERVER
-    func getDataFromServer() {
+    
+    //#################################################################################
+    //MARK: LOGOUT
+    @IBAction func logOut(_ sender: UIButton) {
+        do {
+           try Auth.auth().signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch {
+            SCLAlertView().showError("Error Signing out.", subTitle: "Please try again")
+        }
+    }
+    //#################################################################################
+    //MARK; UPDATE DATA
+    
+    func updateData() {
+        let user = Auth.auth().currentUser?.email
+        let hashID = String(user!.hashValue)
         
+        let clockinDB = Database.database().reference().child(hashID).child(String(dateID))
         
+        clockinDB.observe(.childAdded) { (snapShot) in
+            let snapShotValue = snapShot.value as! Dictionary <String,String>
+            //            print(snapShotValue)
+            
+            let location = snapShotValue["Location"]
+            let time = snapShotValue["time"]
+            let job = snapShotValue["job"]
+            
+            let clockIn = PunchData()
+            clockIn.clockin = time!
+            clockIn.location = location!
+            clockIn.jobDescription = job!
+            
+            self.myClockInData.append(clockIn)
+            
+        }
     }
     
+    @IBAction func getData(_ sender: UIButton) {
+        for i in 1...self.myClockInData.count {
+            print(myClockInData[i-1].jobDescription)
+        }
         
+    }
+
+    
+    
 }

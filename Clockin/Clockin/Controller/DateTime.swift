@@ -22,6 +22,11 @@ class DateTime {
         formatter.timeStyle = .short
         return formatter.string(from: currentDateTime)
     }
-    
+    func currentDay() -> String {
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter.string(from: currentDateTime)
+        
+    }
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 class PunchData {
-    
+    var day = ""
     var location = ""
     var clockin = ""
     var jobDescription = ""

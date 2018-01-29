@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SCLAlertView
 
 class RegisterViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +41,7 @@ class RegisterViewController: UIViewController {
     if error != nil {
     print(error!)
         SVProgressHUD.dismiss()
+        SCLAlertView().showError("Something Went Wrong!", subTitle: "Please Try again.")
     } else {
     //sucess
     print("Success")

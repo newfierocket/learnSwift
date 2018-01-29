@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SCLAlertView
 
 class LoginViewController: UIViewController {
     
@@ -36,9 +37,9 @@ class LoginViewController: UIViewController {
         SVProgressHUD.show()
         Auth.auth().signIn(withEmail: emailLoginTextField.text!, password: passwordLoginTextField.text!) { (user, error) in
             if error != nil {
-                print("error Signing in")
                 print(error!)
                 SVProgressHUD.dismiss()
+                SCLAlertView().showError("There was an Error", subTitle: "Please try again")
             } else {
                 print("User Authenticated")
                 self.performSegue(withIdentifier: "goToClockin", sender: self)

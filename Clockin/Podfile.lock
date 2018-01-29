@@ -1,16 +1,16 @@
 PODS:
-  - Firebase (4.8.1):
-    - Firebase/Core (= 4.8.1)
-  - Firebase/Auth (4.8.1):
+  - Firebase (4.8.2):
+    - Firebase/Core (= 4.8.2)
+  - Firebase/Auth (4.8.2):
     - Firebase/Core
     - FirebaseAuth (= 4.4.2)
-  - Firebase/Core (4.8.1):
-    - FirebaseAnalytics (= 4.0.7)
+  - Firebase/Core (4.8.2):
+    - FirebaseAnalytics (= 4.0.9)
     - FirebaseCore (= 4.0.14)
-  - Firebase/Database (4.8.1):
+  - Firebase/Database (4.8.2):
     - Firebase/Core
     - FirebaseDatabase (= 4.1.4)
-  - FirebaseAnalytics (4.0.7):
+  - FirebaseAnalytics (4.0.9):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
@@ -44,17 +44,28 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SCLAlertView (0.8)
   - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
   - Firebase
   - Firebase/Auth
   - Firebase/Database
+  - SCLAlertView (from `https://github.com/vikmeup/SCLAlertView-Swift.git`)
   - SVProgressHUD
 
+EXTERNAL SOURCES:
+  SCLAlertView:
+    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
+
+CHECKOUT OPTIONS:
+  SCLAlertView:
+    :commit: 6f24418fda5cf7d285b765c283ddee6c2b30321b
+    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
+
 SPEC CHECKSUMS:
-  Firebase: 2721056b8885eef90233b03f37be64358d35d262
-  FirebaseAnalytics: 617afa8c26b57a0c3f11361b248bc9e17bfd8dfd
+  Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
+  FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
   FirebaseAuth: bd2738c5c1e92b108ba5f7f7335908097a4e50bb
   FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
   FirebaseDatabase: de4446507ccd3257fca37d16f40e1540324571fd
@@ -63,8 +74,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SCLAlertView: 03a1aa8093c11bf880f46c6aeedc9da91f1093ad
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: 6b397cb5c8c30e9c39a3604ac114c58e837ff17f
+PODFILE CHECKSUM: 1c42a231ed856c6a2917440fd4452cd33cdd7809
 
 COCOAPODS: 1.4.0
