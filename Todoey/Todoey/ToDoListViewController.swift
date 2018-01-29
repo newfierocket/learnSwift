@@ -10,11 +10,16 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
+    let defaults = UserDefaults.standard
+    
     var itemArray = ["Kill Bill", "Pick up knife", "Buy Butter"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        if let items = UserDefaults.standard.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +59,8 @@ class ToDoListViewController: UITableViewController {
         //this creates the action to do and executes once done pressed
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
             self.itemArray.append(textField.text!)
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+            
             self.tableView.reloadData()
         }
          alert.addTextField { (alertTextField) in
