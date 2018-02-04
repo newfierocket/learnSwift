@@ -159,7 +159,7 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
         }
     }
     //#################################################################################
-    //MARK; UPDATE DATA
+    //MARK: UPDATE DATA
     
     func updateData() {
         let user = Auth.auth().currentUser?.email
@@ -186,9 +186,9 @@ class ClockinViewController: UIViewController, CLLocationManagerDelegate, UIText
     }
     
     @IBAction func getData(_ sender: UIButton) {
-        for i in 1...self.myClockInData.count {
-            print(myClockInData[i-1].jobDescription)
-        }
+//        for i in 1...self.myClockInData.count {
+//            print(myClockInData[i-1].jobDescription)
+//        }
         
     }
 
